@@ -18,11 +18,8 @@ import no.nordicsemi.android.toolbox.lib.utils.spec.RSCS_SERVICE_UUID
 import no.nordicsemi.android.toolbox.lib.utils.spec.SMP_SERVICE_UUID
 import no.nordicsemi.android.toolbox.lib.utils.spec.THROUGHPUT_SERVICE_UUID
 import no.nordicsemi.android.toolbox.lib.utils.spec.UART_SERVICE_UUID
-import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
-import kotlin.uuid.toKotlinUuid
 
-@OptIn(ExperimentalUuidApi::class)
 object ServiceManagerFactory {
 
     private val serviceManagers = mapOf(
@@ -46,7 +43,7 @@ object ServiceManagerFactory {
         EXPERIMENTAL_BUTTONLESS_DFU_SERVICE_UUID to ::DFUManager,
 
         // Add more service UUIDs to handler mappings as needed
-    ).mapKeys { it.key.toKotlinUuid() }
+    ).mapKeys { it.key }
 
     fun createServiceManager(serviceUuid: Uuid): ServiceManager? {
         return serviceManagers[serviceUuid]?.invoke()

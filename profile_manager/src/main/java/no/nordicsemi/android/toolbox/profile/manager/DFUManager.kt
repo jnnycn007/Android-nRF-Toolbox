@@ -10,14 +10,11 @@ import no.nordicsemi.android.toolbox.lib.utils.spec.SMP_SERVICE_UUID
 import no.nordicsemi.android.toolbox.profile.data.DFUsAvailable
 import no.nordicsemi.android.toolbox.profile.manager.repository.DFURepository
 import no.nordicsemi.kotlin.ble.client.RemoteService
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.toKotlinUuid
 
 internal class DFUManager : ServiceManager {
     override val profile: Profile
         get() = Profile.DFU
 
-    @OptIn(ExperimentalUuidApi::class)
     override suspend fun observeServiceInteractions(
         deviceId: String,
         remoteService: RemoteService,
@@ -25,32 +22,30 @@ internal class DFUManager : ServiceManager {
     ) {
         try {
             when (remoteService.uuid) {
-                DFU_SERVICE_UUID.toKotlinUuid() -> DFURepository.updateAppName(
+                DFU_SERVICE_UUID -> DFURepository.updateAppName(
                     deviceId,
                     DFUsAvailable.DFU_SERVICE
                 )
 
-                SMP_SERVICE_UUID.toKotlinUuid() -> DFURepository.updateAppName(
+                SMP_SERVICE_UUID -> DFURepository.updateAppName(
                     deviceId,
                     DFUsAvailable.SMP_SERVICE
                 )
 
-                LEGACY_DFU_SERVICE_UUID.toKotlinUuid() -> DFURepository.updateAppName(
+                LEGACY_DFU_SERVICE_UUID -> DFURepository.updateAppName(
                     deviceId,
                     DFUsAvailable.LEGACY_DFU_SERVICE
                 )
 
-                EXPERIMENTAL_BUTTONLESS_DFU_SERVICE_UUID.toKotlinUuid() -> DFURepository.updateAppName(
+                EXPERIMENTAL_BUTTONLESS_DFU_SERVICE_UUID -> DFURepository.updateAppName(
                     deviceId,
                     DFUsAvailable.EXPERIMENTAL_BUTTONLESS_DFU_SERVICE
                 )
 
-                MDS_SERVICE_UUID.toKotlinUuid() -> DFURepository.updateAppName(
+                MDS_SERVICE_UUID -> DFURepository.updateAppName(
                     deviceId,
                     DFUsAvailable.MDS_SERVICE
                 )
-
-                else -> null
             }
         } catch (_: Exception) {
             DFURepository.clear(deviceId)

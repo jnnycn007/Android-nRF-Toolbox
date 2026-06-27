@@ -52,11 +52,11 @@ dependencyResolutionManagement {
     versionCatalogs {
         // Use Nordic Gradle Version Catalog with common external libraries versions.
         create("libs") {
-            from("no.nordicsemi.android.gradle:version-catalog:2.15")
+            from("no.nordicsemi.gradle:version-catalog:3.1.2-1")
         }
         // Fixed versions for Nordic libraries.
         create("nordic") {
-            from("no.nordicsemi.android:version-catalog:2026.04.01")
+            from("no.nordicsemi.gradle:nordic-version-catalog:2026.06.02")
         }
     }
 }
@@ -65,7 +65,6 @@ rootProject.name = "Android nRF Toolbox"
 
 include(":app")
 include(":lib_analytics")
-include(":profile-parsers")
 include(":lib_service")
 include(":lib_storage")
 include(":lib_ui")
@@ -73,6 +72,7 @@ include(":lib_utils")
 include(":profile")
 include(":profile_data")
 include(":profile_manager")
+include(":profile_parsers")
 
 //if (file("../Android-Common-Libraries").exists()) {
 //    includeBuild("../Android-Common-Libraries")
