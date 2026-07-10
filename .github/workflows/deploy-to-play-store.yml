@@ -20,14 +20,10 @@ jobs:
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
           KEYSTORE_KEY_PSWD: ${{ secrets.KEYSTORE_KEY_PSWD }}
           KEYSTORE_PSWD: ${{ secrets.KEYSTORE_PSWD }}
-          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-          GPG_PASSWORD: ${{ secrets.GPG_PASSWORD }}
         run: |
           echo "${{ secrets.GOOGLE_SERVICES }}" | base64 --decode > app/google-services.json
           echo "${{ secrets.KEYSTORE_FILE }}" > keystore.asc
           gpg -d --passphrase "${{ secrets.KEYSTORE_FILE_PSWD }}" --batch keystore.asc > keystore
-          echo "${{ secrets.GPG_FILE }}" > sec.gpg.asc
-          gpg -d --passphrase "${{ secrets.GPG_FILE_PSWD }}" --batch sec.gpg.asc > sec.gpg
           echo "${{ secrets.API_KEY_FILE }}" > fastlane-api.json.asc
           gpg -d --passphrase "${{ secrets.API_KEY_FILE_PSWD }}" --batch fastlane-api.json.asc > fastlane-api.json
           fastlane deployInternal
